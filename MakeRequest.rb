@@ -3,7 +3,8 @@ require 'net/http'
 require 'openssl'
 require 'json'
 
-url = URI("https://api-football-v1.p.rapidapi.com/v2/leagues/type/league")
+url1 = URI("https://api-football-v1.p.rapidapi.com/v2/leagues/type/league")
+url2
 
 http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
