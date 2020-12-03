@@ -1,5 +1,5 @@
 class Club < ActiveRecord::Base
     belongs_to :league
     has_many :players
-    has_many :leagues, through :classified_club 
+    has_many :leagues, through: :classified_status
 end

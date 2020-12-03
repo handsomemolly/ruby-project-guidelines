@@ -1,4 +1,4 @@
-class ClassifiedClub < ActiveRecord::Base
+class ClassifiedStatus < ActiveRecord::Base
     has_many :clubs
     has_many :leagues 
 end

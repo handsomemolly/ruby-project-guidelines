@@ -1,4 +1,3 @@
 class League < ActiveRecord::Base
-    has_many :clubs, through :classified_club
-    has_many :clubs
+    has_many :clubs, through: :classified_status
 end
