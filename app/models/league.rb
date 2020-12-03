@@ -1,4 +1,4 @@
 class League < ActiveRecord::Base
-    has_many :players
-    belongs_to :country
+    has_many :clubs, through :classified_club
+    has_many :clubs
 end

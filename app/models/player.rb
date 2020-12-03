@@ -1,4 +1,4 @@
 class Player < ActiveRecord::Base
-    belongs_to :league
-    belongs_to :national_team
+    belongs_to :club
+   
 end
