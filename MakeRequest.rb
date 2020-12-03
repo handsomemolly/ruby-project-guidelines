@@ -16,7 +16,9 @@ request["x-rapidapi-host"] = 'api-football-v1.p.rapidapi.com'
 response = http.request(request)
 
 standings = JSON.parse(response.read_body)
-puts standings
+repeats = standings['api']['leagues'].map {|league| league['name']}
+pp repeats.uniq
+
 
 
 
