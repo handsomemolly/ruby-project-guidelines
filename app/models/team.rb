@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-    belongs_to :tournaments
-    has_many :scorers
-    has_many :leagues, through: :qualifiers
+    has_many :matches
+    has_many :stadiums, through: :matches
+
 end
