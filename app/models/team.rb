@@ -27,12 +27,40 @@ class Team < ActiveRecord::Base
         end
     end
 
+    def away_wins
+        
+        self.away_matches.select do |m|
+             m.away_team_goals > m.home_team_goals
+        end
+    end
+
+    def total_wins
+        self.home_wins.length + self.away_wins.length
+    end
+
+    def self.team_with_most_wins
+        wins = []
+        self.all.each do |w|
+            wins.push(w.home_wins + w.away_wins)
+        end
+        wins.max_by{|w| w.length}.first.home_team
+    end
+
+
     def away_goals
         self.away_matches.map{|m| m.away_team_goals}.sum 
     end
 
     def home_goals
         self.away_matches.map{|m| m.home_team_goals}.sum 
+    end
+
+    def self.team_with_most_away_wins
+        wins = []
+        self.all.each do |t|
+            wins << t.away_wins
+        end
+        wins.max_by{|m| m.length}.first.away_team
     end
 
 end
