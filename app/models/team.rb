@@ -15,6 +15,14 @@ class Team < ActiveRecord::Base
         Match.all.select{|m| m.away_team_id == self.id}
     end
 
+    def all_matches
+        self.home_matches + self.away_matches
+    end
+
+    def win_percentage
+        (self.total_wins.to_f / self.all_matches.length.to_f) * 100
+    end
+
     def home_arena
         a = self.home_matches.map{|m| m.arena_id}.uniq
         Arena.find_by(id: a).name
