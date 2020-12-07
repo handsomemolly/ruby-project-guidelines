@@ -16,6 +16,10 @@ GEM
     concurrent-ruby (1.1.7)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+<<<<<<< HEAD
+=======
+    json (2.3.1)
+>>>>>>> 616085ca262f061dd861c34677135b8e21050369
     method_source (1.0.0)
     minitest (5.14.2)
     mustermann (1.1.1)
@@ -47,10 +51,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  json
   pry
   require_all
   sinatra-activerecord
   sqlite3
 
 BUNDLED WITH
-   1.14.6
+   1.17.3
