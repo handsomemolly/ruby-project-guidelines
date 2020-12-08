@@ -3,26 +3,29 @@ require_relative 'match.rb'
 require_relative 'arena.rb'
 
 
-class Menu
-
     def start
         puts 'Hello, we hope you are able to read this'
         puts 'type "options" to see valid commands'
-        get_input
+        team = get_team
         user_input = get_input
-        until user_input == 'exit'
+        until user_input == "exit"
             case user_input
-                when 't'
-                    puts "#{Team.all.name}"
-                when 'stats'
-                    get_league_stats
-                when get_team
-                    get_ranking
-                    get_team_stats
-                when 'options'
-                    options
-                else 
-                    puts "Invalid command, please try again"
+            when "t" then
+                puts "t"
+                user_input = get_input
+            when "stats" then
+                get_league_stats
+                user_input = get_input
+            when team then
+                get_ranking
+                get_team_stats
+                user_input = get_input
+            when "options" then
+                options
+                user_input = get_input
+            else 
+                puts "Invalid command, please try again"
+                user_input = get_input
             end
         end
         exit
@@ -33,7 +36,6 @@ class Menu
         puts 'Type "stats" to see statistics for the Premier League'
         puts 'Type the name of your favorite team in the list'
         puts 'Type "exit" to leave'
-        get_input
     end
 
     def get_input
@@ -42,9 +44,9 @@ class Menu
     end
 
     def get_team
-        puts 'Please enter a comand'
+        puts 'Please enter a team name'
         team = STDIN.gets.chomp
-        until Team.all.name.include("#{team}")
+        until Team.all.map{|t| t.name}.include?(team)
             puts 'Please enter the name of a team in the Premier League'
             team = STDIN.gets.chomp
         end
@@ -75,4 +77,4 @@ class Menu
         pp standings['api']['standings'][0].select{|t| t['teamName'] == "Liverpool"}.map{|t| t['rank']}.to_s
     end
 
-end
+

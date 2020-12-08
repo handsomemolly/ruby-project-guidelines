@@ -72,7 +72,8 @@ class Team < ActiveRecord::Base
         self.all.each do |t|
             wins << t.away_wins
         end
-        wins.max_by{|m| m.length}.first.away_team
+        w = wins.max_by{|m| m.length}.first.away_team
+        return w
     end
 
 
