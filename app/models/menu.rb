@@ -1,10 +1,11 @@
 require_relative 'team.rb'
 require_relative 'match.rb'
 require_relative 'arena.rb'
+    
+
     def start
         welcome
         user_input = get_input
-        # team = get_team
         until user_input == "exit"
             case user_input
             when "t" then
@@ -13,15 +14,15 @@ require_relative 'arena.rb'
             when "stats" then
                 get_league_stats
                 user_input = get_input
-            # when get_team then
-            #     get_ranking
-            #     get_team_stats
-            #     # user_input = get_input
-            #     start
             when "options" then
                 options
                 user_input = get_input
             else 
+                if Team.all.map{|t| t.name}.include?(user_input)
+                    get_team_stats(user_input)
+                    get_ranking(user_input)
+                    start
+                end
                 puts "Invalid command, please try again"
                 user_input = get_input
             end
@@ -47,9 +48,9 @@ require_relative 'arena.rb'
         end
         team
     end
-    def get_team_stats
-        puts "Goals per game: " #+ (Team.all.find_by(name: "#{user_input}").goals_per_game).to_s 
-        puts "Win percentage: " #+ (Team.all.find_by(name: "#{user_input}").win_percentage).to_s
+    def get_team_stats(user_input)
+        puts "Goals per game: " + "#{(Team.all.find_by(name: "#{user_input}").goals_per_game).to_s}" 
+        puts "Win percentage: " + "#{(Team.all.find_by(name: "#{user_input}").win_percentage).to_s}"
     end
     def get_league_stats
         puts "Team with most wins: " + "#{Team.team_with_most_wins.name}"
@@ -66,9 +67,9 @@ require_relative 'arena.rb'
         request["x-rapidapi-host"] = 'api-football-v1.p.rapidapi.com'
         response = http.request(request)
         standings = JSON.parse(response.read_body)
-        pp standings['api']['standings'][0].select{|t| t['teamName'] == "Liverpool"}.map{|t| t['rank']}.to_s
+        pp "Ranking: " + standings['api']['standings'][0].select{|t| t['teamName'] == "Liverpool"}.map{|t| t['rank']}.to_s
     end
     def welcome
-        puts "Welcome to our Broken Project"
+        puts "Use this app to see stats on the Premier League"
         puts 'type "options" to see valid commands'
     end
