@@ -7,4 +7,5 @@ gem "pry"
 gem "require_all"
 gem "json"
 gem 'rake'
+gem 'colorize'
 

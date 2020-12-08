@@ -23,20 +23,20 @@ require_relative 'arena.rb'
                     get_ranking(user_input)
                     start
                 end
-                puts "Invalid command, please try again"
+                puts "Invalid command, please try again".red
                 user_input = get_input
             end
         end
         exit
     end
     def options
-        puts 'Type "t" to see a list of teams'
-        puts 'Type "stats" to see statistics for the Premier League'
-        puts 'Type the name of your favorite team in the list'
-        puts 'Type "exit" to leave'
+        puts 'Type "t" to see a list of teams'.yellow
+        puts 'Type "stats" to see statistics for the Premier League'.yellow
+        puts 'Type the name of your favorite team in the list'.yellow
+        puts 'Type "exit" to leave'.yellow
     end
     def get_input
-        puts 'Please enter a command'
+        puts 'Please enter a command'.blue
         STDIN.gets.chomp
     end
     def get_team
@@ -72,9 +72,9 @@ require_relative 'arena.rb'
         request["x-rapidapi-host"] = 'api-football-v1.p.rapidapi.com'
         response = http.request(request)
         standings = JSON.parse(response.read_body)
-        pp "Ranking: " + standings['api']['standings'][0].select{|t| t['teamName'] == "Liverpool"}.map{|t| t['rank']}.to_s
+        pp "Ranking: " + standings['api']['standings'][0].select{|t| t['teamName'] == "#{team}"}.map{|t| t['rank']}.to_s
     end
     def welcome
-        puts "Use this app to see stats on the Premier League"
-        puts 'type "options" to see valid commands'
+        puts "Use this app to see stats on the Premier League".blue
+        puts 'type "options" to see valid commands'.blue
     end
