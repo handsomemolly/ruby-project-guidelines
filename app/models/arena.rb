@@ -16,4 +16,17 @@ class Arena < ActiveRecord::Base
         total_goals = home_goals + away_goals
     end
 
+    def self.arena_with_most_goals
+        arenas = []
+        goals = []
+        Arena.all.each do |a|
+            arenas.push(a)
+            goals.push(a.goals_scored_here)
+        end
+        max = goals.max_by{|g| g}
+        ind = goals.index(max)
+        arenas[ind].name + ': ' + max.to_s
+        
+    end
+
 end

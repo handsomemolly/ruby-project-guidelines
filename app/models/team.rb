@@ -19,8 +19,12 @@ class Team < ActiveRecord::Base
         self.home_matches + self.away_matches
     end
 
+    def goals_per_game
+        ((self.home_goals + self.away_goals).to_f / self.all_matches.length.to_f).round(2)
+    end
+
     def win_percentage
-        (self.total_wins.to_f / self.all_matches.length.to_f) * 100
+        ((self.total_wins.to_f / self.all_matches.length.to_f) * 100).round(2)
     end
 
     def home_arena
@@ -70,6 +74,7 @@ class Team < ActiveRecord::Base
         end
         wins.max_by{|m| m.length}.first.away_team
     end
+
 
 end
 

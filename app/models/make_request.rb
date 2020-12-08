@@ -9,7 +9,7 @@ class MakeRequest < ActiveRecord::Base
     @@urls = [
         # URI("https://api-football-v1.p.rapidapi.com/v2/topscorers/2"), #scorers in Premier League
         URI("https://api-football-v1.p.rapidapi.com/v2/teams/league/2"), #teams in Premier League
-        # URI("https://api-football-v1.p.rapidapi.com/v2/leagueTable/2"), #team standings in Premier League
+        URI("https://api-football-v1.p.rapidapi.com/v2/leagueTable/2"), #team standings in Premier League
         URI("https://api-football-v1.p.rapidapi.com/v2/fixtures/league/2?timezone=Europe%2FLondon") #fixtures in Premier League
     ]
     @@http = []
@@ -67,6 +67,16 @@ class MakeRequest < ActiveRecord::Base
         arena.each do |a|
             Arena.create(name: a)
         end
+    end
+
+
+    def self.rank
+        standings = JSON.parse(@@responses[1].read_body)
+        pp standings['api']['standings'][0].select{|t| t['teamName'] == "Liverpool"}.map{|t| t['rank']}.to_s
+    end
+
+    def self.test
+        puts "I work"
     end
 
 end 
