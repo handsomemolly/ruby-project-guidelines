@@ -70,9 +70,9 @@ class MakeRequest < ActiveRecord::Base
     end
 
 
-    def self.rank
+    def self.rank(team)
         standings = JSON.parse(@@responses[1].read_body)
-        pp standings['api']['standings'][0].select{|t| t['teamName'] == "Liverpool"}.map{|t| t['rank']}.to_s
+        pp standings['api']['standings'][0].select{|t| t['teamName'] == "#{team}"}.map{|t| t['rank']}.to_s
     end
 
     def self.test
