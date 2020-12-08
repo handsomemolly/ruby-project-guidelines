@@ -1,25 +1,23 @@
 require_relative 'team.rb'
 require_relative 'match.rb'
 require_relative 'arena.rb'
-
-
     def start
-        puts 'Hello, we hope you are able to read this'
-        puts 'type "options" to see valid commands'
-        team = get_team
+        welcome
         user_input = get_input
+        # team = get_team
         until user_input == "exit"
             case user_input
             when "t" then
-                puts "t"
+                puts Team.all.map{|t| t.name}
                 user_input = get_input
             when "stats" then
                 get_league_stats
                 user_input = get_input
-            when team then
-                get_ranking
-                get_team_stats
-                user_input = get_input
+            # when get_team then
+            #     get_ranking
+            #     get_team_stats
+            #     # user_input = get_input
+            #     start
             when "options" then
                 options
                 user_input = get_input
@@ -30,19 +28,16 @@ require_relative 'arena.rb'
         end
         exit
     end
-
     def options
         puts 'Type "t" to see a list of teams'
         puts 'Type "stats" to see statistics for the Premier League'
         puts 'Type the name of your favorite team in the list'
         puts 'Type "exit" to leave'
     end
-
     def get_input
         puts 'Please enter a command'
         STDIN.gets.chomp
     end
-
     def get_team
         puts 'Please enter a team name'
         team = STDIN.gets.chomp
@@ -52,18 +47,15 @@ require_relative 'arena.rb'
         end
         team
     end
-
     def get_team_stats
-        puts "Goals per game: " + (Team.all.find_by(name: "#{user_input}").goals_per_game).to_s 
-        puts "Win percentage: " + (Team.all.find_by(name: "#{user_input}").win_percentage).to_s
+        puts "Goals per game: " #+ (Team.all.find_by(name: "#{user_input}").goals_per_game).to_s 
+        puts "Win percentage: " #+ (Team.all.find_by(name: "#{user_input}").win_percentage).to_s
     end
-
     def get_league_stats
-        puts "Team with most wins: " + Team.team_with_most_wins.name
-        puts "Team with most away wins: " + Team.team_with_most_away_wins.name
+        puts "Team with most wins: " + "#{Team.team_with_most_wins.name}"
+        puts "Team with most away wins: " + "#{Team.team_with_most_away_wins.name}"
         puts "Arena with most goals: " + Arena.arena_with_most_goals
     end
-
     def get_ranking(team)
         url = URI("https://api-football-v1.p.rapidapi.com/v2/leagueTable/2")
         http = Net::HTTP.new(url.host, url.port)
@@ -76,5 +68,7 @@ require_relative 'arena.rb'
         standings = JSON.parse(response.read_body)
         pp standings['api']['standings'][0].select{|t| t['teamName'] == "Liverpool"}.map{|t| t['rank']}.to_s
     end
-
-
+    def welcome
+        puts "Welcome to our Broken Project"
+        puts 'type "options" to see valid commands'
+    end
