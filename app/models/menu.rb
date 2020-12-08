@@ -51,6 +51,11 @@ require_relative 'arena.rb'
     def get_team_stats(user_input)
         puts "Goals per game: " + "#{(Team.all.find_by(name: "#{user_input}").goals_per_game).to_s}" 
         puts "Win percentage: " + "#{(Team.all.find_by(name: "#{user_input}").win_percentage).to_s}"
+        puts "Won matches: " + "#{(Team.all.find_by(name: "#{user_input}").total_wins).to_s}"
+        puts "Lost matches: " + "#{(Team.all.find_by(name: "#{user_input}").total_losses).to_s}"
+        puts "Total draws: " + "#{(Team.all.find_by(name: "#{user_input}").total_draws).to_s}"
+
+
     end
     def get_league_stats
         puts "Team with most wins: " + "#{Team.team_with_most_wins.name}"

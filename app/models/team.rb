@@ -76,6 +76,41 @@ class Team < ActiveRecord::Base
         return w
     end
 
+    def home_losses
+        
+        self.home_matches.select do |m|
+             m.home_team_goals < m.away_team_goals
+        end
+    end
+
+    def away_losses
+        
+        self.away_matches.select do |m|
+             m.away_team_goals < m.home_team_goals
+        end
+    end
+
+    def total_losses
+        self.home_losses.length + self.away_losses.length
+    end
+
+    def home_draws
+        
+        self.home_matches.select do |m|
+             m.home_team_goals == m.away_team_goals
+        end
+    end
+
+    def away_draws
+        
+        self.away_matches.select do |m|
+             m.away_team_goals == m.home_team_goals
+        end
+    end
+
+    def total_draws
+        self.home_draws.length + self.away_draws.length
+    end
 
 end
 
